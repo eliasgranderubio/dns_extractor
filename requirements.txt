@@ -1,0 +1,2 @@
+dnspython==1.14.0
+tldextract==2.0.1
