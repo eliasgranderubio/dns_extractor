@@ -28,7 +28,6 @@ class OutputWorker(Thread):
                 output_record = info['hostname'] + ',' + info['ip']
                 if self.__is_new_record(output_record):
                     print(output_record, file=f, flush=True)
-                self.manager.get_output_queue().task_done()
 
     # -- Private methods
 

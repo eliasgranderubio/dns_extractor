@@ -2,7 +2,7 @@
 dns_extractor is a community driven project with the goal of creating the fastest subdomain enumeration tool.
 
 ## Prerequisites
-Before dns_extractor usage, you must have installed the requirements:
+Before dns_extractor usage, you must have installed Python >= 3.4.3 and the requirements:
 ```
     pip install -r requirements.txt
 ```

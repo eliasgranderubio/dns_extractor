@@ -37,7 +37,6 @@ class DnsWorker(Thread):
                     # No matter
                     pass
                 # Task done
-                self.manager.get_input_queue().task_done()
                 self.manager.fly_queries_release()
                 # Decrease dns workers
                 self.manager.decrease_dns_worker()
