@@ -11,9 +11,9 @@ Before dns_extractor usage, you must have installed Python >= 3.4.3 and the requ
 Below, the help when you type `./dns_extractor.py -h` is shown:
 
 ```
-    usage: dns_extractor.py [-h] -d DOMAIN -r FILE -s FILE [-o FILE]
-                            [--no_auth_ns] [-w WORKERS] [-v]
-    
+    usage: dns_extractor.py [-h] -d DOMAIN -r FILE -s FILE [-om {csv,json}]
+                            [-o FILE] [--no_auth_ns] [-w WORKERS] [-v]
+
     DNS brute force application.
 
     optional arguments:
@@ -26,6 +26,8 @@ Below, the help when you type `./dns_extractor.py -h` is shown:
       -s FILE, --subdomains FILE
                             input file containing newline delimited list of
                             subdomains
+      -om {csv,json}, --output_mode {csv,json}
+                            output format. By default csv mode is set
       -o FILE, --output FILE
                             output file for writing results. By default, results
                             will be shown on stdout
@@ -57,6 +59,20 @@ A expected output example is shown below:
     sftp.microsoft.com,64.4.6.233
     files.microsoft.com,65.55.39.12
     files.microsoft.com,64.4.6.233
+```
+
+Another expected output example with `--output_mode json` is shown below:
+```
+    {"hostname": "mail.microsoft.com", "ip": "157.58.197.10"}
+    {"hostname": "mail.microsoft.com", "ip": "167.220.71.19"}
+    {"hostname": "www.microsoft.com", "ip": "23.62.124.108"}
+    {"hostname": "ftp.microsoft.com", "ip": "134.170.188.232"}
+    {"hostname": "blog.microsoft.com", "ip": "64.4.6.233"}
+    {"hostname": "blog.microsoft.com", "ip": "65.55.39.12"}
+    {"hostname": "sftp.microsoft.com", "ip": "65.55.39.12"}
+    {"hostname": "sftp.microsoft.com", "ip": "64.4.6.233"}
+    {"hostname": "files.microsoft.com", "ip": "65.55.39.12"}
+    {"hostname": "files.microsoft.com", "ip": "64.4.6.233"}
 ```
 
 ## Bugs and Feedback

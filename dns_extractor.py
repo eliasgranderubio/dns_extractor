@@ -6,8 +6,8 @@ from util.cli_parser import CLIParser
 
 
 # Start the output worker and wait for it
-def start_output_worker_and_wait_for(manager, output_filename):
-    w = OutputWorker(manager, output_filename)
+def start_output_worker_and_wait_for(manager, output_filename, output_mode):
+    w = OutputWorker(manager, output_filename, output_mode)
     w.start()
     w.join()
 
@@ -29,7 +29,7 @@ def main(parsed_args):
     start_input_worker(manager, parsed_args.get_domain(), parsed_args.get_resolvers_filename(),
                        parsed_args.get_subdomains_filename(), parsed_args.include_auth_ns())
     start_dns_workers(manager, parsed_args.get_workers())
-    start_output_worker_and_wait_for(manager, parsed_args.get_output_filename())
+    start_output_worker_and_wait_for(manager, parsed_args.get_output_filename(), parsed_args.get_output_mode())
 
 if __name__ == "__main__":
     main(CLIParser())
