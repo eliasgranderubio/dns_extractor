@@ -19,15 +19,15 @@ def start_dns_workers(manager, total_workers):
 
 
 # Start the input worker
-def start_input_worker(manager, domain, resolvers_filename, subdomains_filename):
-    InputWorker(domain, manager, resolvers_filename, subdomains_filename).start()
+def start_input_worker(manager, domain, resolvers_filename, subdomains_filename, include_auth_ns):
+    InputWorker(domain, manager, resolvers_filename, subdomains_filename, include_auth_ns).start()
 
 
 # Main function
 def main(parsed_args):
     manager = Manager()
     start_input_worker(manager, parsed_args.get_domain(), parsed_args.get_resolvers_filename(),
-                       parsed_args.get_subdomains_filename())
+                       parsed_args.get_subdomains_filename(), parsed_args.include_auth_ns())
     start_dns_workers(manager, parsed_args.get_workers())
     start_output_worker_and_wait_for(manager, parsed_args.get_output_filename())
 

@@ -12,18 +12,32 @@ class CLIParser:
         super(CLIParser, self).__init__()
         self.parser = argparse.ArgumentParser(prog='dns_extractor.py', description='DNS brute force application.')
         self.parser.add_argument('-d', '--domain', required=True, nargs=1,
-                                 help='Input domain for searching.')
+                                 help='input domain for searching')
         self.parser.add_argument('-r', '--resolvers', required=True, nargs=1, type=argparse.FileType('r'),
-                                 help='Input file containing newline delimited list of resolvers.')
+                                 metavar='FILE', help='input file containing newline delimited list of resolvers')
         self.parser.add_argument('-s', '--subdomains', required=True, nargs=1, type=argparse.FileType('r'),
-                                 help='Input file containing newline delimited list of subdomains.')
+                                 metavar='FILE', help='input file containing newline delimited list of subdomains')
+        self.parser.add_argument('-o', '--output', nargs=1, metavar='FILE',
+                                 help='output file for writing results. By default, results will be shown on stdout')
+        self.parser.add_argument('--no_auth_ns', action='store_true',
+                                 help='the authoritative dns for the domain searched will be excluded from resolvers '
+                                      'if it was not included in resolvers input file. By default, the authoritative '
+                                      'dns for the domain searched is added to resolvers list if it was not included '
+                                      'yet')
         self.parser.add_argument('-w', '--workers', default=[50], nargs=1, type=int,
-                                 help='Number of workers for execution. By default, the workers number is set to 50.')
-        self.parser.add_argument('-o', '--output', nargs=1,
-                                 help='Output file for writing results. By default, results will be shown on stdout.')
+                                 help='number of workers for execution. By default, the workers number is set to 50')
+        self.parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1.0',
+                                 help='show the version message and exit')
         self.args = self.parser.parse_args()
 
     # -- Getters
+
+    # Get if authoritative ns will be included
+    def include_auth_ns(self):
+        if self.args.no_auth_ns:
+            return False
+        else:
+            return True
 
     # Get number of workers
     def get_workers(self):

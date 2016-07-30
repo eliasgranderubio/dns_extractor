@@ -11,27 +11,33 @@ Before dns_extractor usage, you must have installed Python >= 3.4.3 and the requ
 Below, the help when you type `./dns_extractor.py -h` is shown:
 
 ```
-    usage: dns_extractor.py [-h] -d DOMAIN -r RESOLVERS -s SUBDOMAINS [-w WORKERS]
-                            [-o OUTPUT]
-
+    usage: dns_extractor.py [-h] -d DOMAIN -r FILE -s FILE [-o FILE]
+                            [--no_auth_ns] [-w WORKERS] [-v]
+    
     DNS brute force application.
 
     optional arguments:
       -h, --help            show this help message and exit
       -d DOMAIN, --domain DOMAIN
-                            Input domain for searching.
-      -r RESOLVERS, --resolvers RESOLVERS
-                            Input file containing newline delimited list of
-                            resolvers.
-      -s SUBDOMAINS, --subdomains SUBDOMAINS
-                            Input file containing newline delimited list of
-                            subdomains.
+                            input domain for searching
+      -r FILE, --resolvers FILE
+                            input file containing newline delimited list of
+                            resolvers
+      -s FILE, --subdomains FILE
+                            input file containing newline delimited list of
+                            subdomains
+      -o FILE, --output FILE
+                            output file for writing results. By default, results
+                            will be shown on stdout
+      --no_auth_ns          the authoritative dns for the domain searched will be
+                            excluded from resolvers if it was not included in
+                            resolvers input file. By default, the authoritative
+                            dns for the domain searched is added to resolvers list
+                            if it was not included yet
       -w WORKERS, --workers WORKERS
-                            Number of workers for execution. By default, the
-                            workers number is set to 50.
-      -o OUTPUT, --output OUTPUT
-                            Output file for writing results. By default, results
-                            will be shown on stdout.
+                            number of workers for execution. By default, the
+                            workers number is set to 50
+      -v, --version         show the version message and exit
 ```
 
 Fulfilling with the described usage, a usage example would be the next one:
@@ -41,11 +47,16 @@ Fulfilling with the described usage, a usage example would be the next one:
 
 A expected output example is shown below:
 ```
-  mail.microsoft.com,157.58.197.10
-  mail.microsoft.com,167.220.71.19
-  ftp.microsoft.com,134.170.188.232
-  www.microsoft.com,23.62.124.108
-  www.microsoft.com,2.17.234.96
+    mail.microsoft.com,157.58.197.10
+    mail.microsoft.com,167.220.71.19
+    www.microsoft.com,23.62.124.108
+    ftp.microsoft.com,134.170.188.232
+    blog.microsoft.com,64.4.6.233
+    blog.microsoft.com,65.55.39.12
+    sftp.microsoft.com,65.55.39.12
+    sftp.microsoft.com,64.4.6.233
+    files.microsoft.com,65.55.39.12
+    files.microsoft.com,64.4.6.233
 ```
 
 ## Bugs and Feedback
